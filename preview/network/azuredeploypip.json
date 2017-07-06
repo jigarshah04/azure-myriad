@@ -182,45 +182,74 @@
             "adminUsername": "[parameters('adminUsername')]",
             "adminPassword": "[parameters('adminPassword')]"
           },
-          "networkProfile": {
-            "networkInterfaceConfigurations": [
-              {
-                "name": "[variables('nicName')]",
+    "networkProfile": {
+        "networkInterfaceConfigurations": [
+        {
+        "name": "nic1",
+        "properties": {
+            "primary": "true",
+            "ipConfigurations": [
+            {
+                "name": "ip1",
                 "properties": {
-                  "primary": true,
-                  "ipConfigurations": [
-                    {
-                      "name": "[variables('ipConfigName')]",
-                      "properties": {
-                        "subnet": {
-                          "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'), '/subnets/', variables('subnetName'))]"
-                        },
-                        "publicipaddressconfiguration": {
-                          "name": "pub1",
-                          "properties": {
-                            "idleTimeoutInMinutes": 15
-                          }
-                        },
-                        "loadBalancerBackendAddressPools": [
-                          {
-                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/backendAddressPools/', variables('bePoolName'))]"
-                          }
-                        ],
-                        "loadBalancerInboundNatPools": [
-                          {
-                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/', variables('natPoolName'))]"
-                          },
-                          {
-                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/natpool2')]"
-                          }
-                        ]
-                      }
+                "subnet": {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworks/', variables('vnetName'), '/subnets/subnet1')]"
+                },
+                "publicipaddressconfiguration": {
+                    "name": "pub1",
+                    "properties": {
+                    "idleTimeoutInMinutes": 15
                     }
-                  ]
+                },
+                "loadBalancerInboundNatPools": [
+                    {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('lbName'), '/inboundNatPools/natPool1')]"
+                    }
+                ],
+                "loadBalancerBackendAddressPools": [
+                    {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('lbName'), '/backendAddressPools/addressPool1')]"
+                    }
+                ]
                 }
-              }
+            }
             ]
-          },
+        }
+        },
+        {
+        "name": "nic2",
+        "properties": {
+            "primary": "false",
+            "ipConfigurations": [
+            {
+                "name": "ip1",
+                "properties": {
+                "subnet": {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworks/', variables('vnetName'), '/subnets/subnet1')]"
+                },
+                "publicipaddressconfiguration": {
+                    "name": "pub1",
+                    "properties": {
+                    "idleTimeoutInMinutes": 15
+                    }
+                },
+                "loadBalancerInboundNatPools": [
+                    {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('lbName'), '/inboundNatPools/natPool1')]"
+                    }
+                ],
+                "loadBalancerBackendAddressPools": [
+                    {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('lbName'), '/backendAddressPools/addressPool1')]"
+                    }
+                ]
+                }
+            }
+            ]
+        }
+        }
+    ]
+},          
           "extensionProfile": {
             "extensions": [
               {
