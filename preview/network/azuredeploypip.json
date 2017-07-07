@@ -40,9 +40,11 @@
     "location": "[resourceGroup().location]",
     "addressPrefix": "10.0.0.0/16",
     "subnetPrefix": "10.0.0.0/24",
+    "subnetName": "[concat(parameters('vmssName'), 'subnet1')]",
     "virtualNetworkName": "[concat(parameters('vmssName'), 'vnet')]",
     "publicIPAddressName": "[concat(parameters('vmssName'), 'pip')]",
-    "subnetName": "[concat(parameters('vmssName'), 'subnet')]",
+    "subnet2Prefix": "10.0.0.0/24",
+    "subnet2Name": "[concat(parameters('vmssName'), 'subnet2')]",
     "loadBalancerName": "[concat(parameters('vmssName'), 'lb')]",
     "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
     "lbID": "[resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName'))]",    "natPoolName": "[concat(parameters('vmssName'), 'natpool')]",
@@ -81,6 +83,12 @@
             "name": "[variables('subnetName')]",
             "properties": {
               "addressPrefix": "[variables('subnetPrefix')]"
+            }
+          },
+          {
+            "name": "[variables('subnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet2Prefix')]"
             }
           }
         ]
@@ -225,7 +233,7 @@
                 "name": "ip1",
                 "properties": {
                 "subnet": {
-                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworks/', variables('vnetName'), '/subnets/subnet1')]"
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworks/', variables('vnetName'), '/subnets/subnet2')]"
                 },
                 "publicipaddressconfiguration": {
                     "name": "pub1",
