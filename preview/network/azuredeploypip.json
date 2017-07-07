@@ -43,7 +43,7 @@
     "subnetName": "[concat(parameters('vmssName'), 'subnet1')]",
     "virtualNetworkName": "[concat(parameters('vmssName'), 'vnet')]",
     "publicIPAddressName": "[concat(parameters('vmssName'), 'pip')]",
-    "subnet2Prefix": "10.0.0.0/24",
+    "subnet2Prefix": "10.0.1.0/24",
     "subnet2Name": "[concat(parameters('vmssName'), 'subnet2')]",
     "loadBalancerName": "[concat(parameters('vmssName'), 'lb')]",
     "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
